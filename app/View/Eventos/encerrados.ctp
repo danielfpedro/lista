@@ -5,7 +5,7 @@
 </ul>
 
 <div class="page-header">
-	<h3>Eventos</h3>
+	<h3>Eventos encerrados</h3>
 </div>
 
 <table id="has-action-btns" class="table table-bordered table-striped table-hover">
@@ -18,25 +18,22 @@
 				<span class="label label-info">Moderadas</span>&nbsp;
 				<span class="label label-important">Privadas</span>
 			</th>
+			<th style="width: 20px;"></th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php if (!empty($eventos)): ?>
 			<?php $i = 0; ?>
 			<?php foreach ($eventos as $evento): ?>
-				<tr id="linha-listas" style="height: 40px;">
+				<tr id="linha-listas">
 					<td>
 						<?php echo $this->Html->link($evento['Evento']['nome'],array(
-							'controller' => 'eventos', 'action' => 'view',$evento['Evento']['id']
+							'controller' => 'eventos', 'action' => 'view_encerrados',$evento['Evento']['id']
 						)); ?>
-						<div class="pull-right" id="btns-action" style="display: none;">
-							<button class="btn btn-mini"><i class="icon-pencil"></i></button>
-							<button class="btn btn-danger btn-mini"><i class="icon-remove icon-white"></i></button>
-						</div>
 					</td>
 					<td>
 						<?php if (empty($evento['Lista'])): ?>
-							Este evento ainda não possui listas.
+							Este evento ainda não possui listas
 						<?php else: ?>
 							<?php foreach ($evento['Lista'] as $lista): ?>
 								<?php
@@ -53,17 +50,22 @@
 									}
 								?>
 								<span class="label label-<?=$label?> label-lista">
-									<?=$lista['nome']?>
+									<?php
+										echo $this->Html->Link($lista['nome'] . ' (100)',
+											array('controller' => 'listas', 'action' => 'view',$lista['id']),
+											array('id' => 'link-lista','rel' => $i)
+											);
+									?>
 								</span>								
 							<?php endforeach ?>
 						<?php endif ?>
-						<div class="pull-right" id="btns-action" style="display: none;">
-							<?php
-								echo $this->Html->link('<i class=\'icon-plus\'></i>',
-									array('controller' => 'listas', 'action' => 'add',$evento['Evento']['id']),
-									array('escape' => false,'class' => 'btn btn-mini ttl','title'=> 'Nova lista'));
-							?>
-						</div>
+					</td>
+					<td>
+						<?php
+							echo $this->Html->link('<i class=\'icon-eye-open\'></i>',
+								array('controller' => 'eventos', 'action' => 'encerrados_view',$evento['Evento']['id']),
+								array('escape' => false,'class' => 'btn btn-mini'));
+						?>
 					</td>
 				</tr>
 			<?php endforeach ?>

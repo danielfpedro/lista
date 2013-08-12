@@ -45,7 +45,7 @@ class Evento extends AppModel {
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
-			'order' => '',
+			'order' => 'listas_tipo_id',
 			'limit' => '',
 			'offset' => '',
 			'exclusive' => '',

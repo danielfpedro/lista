@@ -19,6 +19,16 @@ class ListasController extends AppController {
 		$this->carregaVariaveisAuth();
 	}
 
+	public function encerradas_view($lista = null){
+
+		$this->Lista->recursive = 1;
+		$lista = $this->Lista->find('first', array('conditions' => array('Lista.id' => $lista)));
+
+		$this->set(compact('lista'));
+
+		$this->carregaVariaveisAuth();
+	}
+
 /**
  * index method
  *
@@ -36,10 +46,13 @@ class ListasController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+	public function add_nome($id = null) {
 		if (!$this->Lista->exists($id)) {
 			throw new NotFoundException(__('Invalid lista'));
 		}
+
+		$this->carregaVariaveisAuth();
+
 		$options = array('conditions' => array('Lista.' . $this->Lista->primaryKey => $id));
 		$this->set('lista', $this->Lista->find('first', $options));
 	}

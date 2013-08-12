@@ -5,6 +5,7 @@ App::uses('AppModel', 'Model');
  *
  * @property Evento $Evento
  * @property ListasTipo $ListasTipo
+ * @property ListasUsuariosPrivados $usuarios_privados
  * @property Usuario $Usuario
  */
 class Lista extends AppModel {
@@ -40,6 +41,28 @@ class Lista extends AppModel {
 			'order' => ''
 		)
 	);
+
+/**
+ * hasMany associations
+ *
+ * @var array
+ */
+	public $hasMany = array(
+		'usuarios_privados' => array(
+			'className' => 'ListasUsuariosPrivados',
+			'foreignKey' => 'lista_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => 'nome',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
+
 
 /**
  * hasAndBelongsToMany associations

@@ -24,7 +24,18 @@ class EventosController extends AppController {
  */
 	public function index() {
 		$this->Evento->recursive = 1;
-		$this->set('eventos', $this->paginate());
+		$now = date('Y-m-d H:i:s');
+		$options = array('Evento.dt_inicio <'=> $now, 'Evento.dt_fim >='=> $now);
+		$eventos = $this->paginate('Evento', $options);
+		$this->set(compact('eventos'));
+		$this->carregaVariaveisAuth();
+	}
+	public function encerrados() {
+		$this->Evento->recursive = 1;
+		$now = date('Y-m-d H:i:s');
+		$options = array('Evento.dt_fim <='=> $now);
+		$eventos = $this->paginate('Evento', $options);
+		$this->set(compact('eventos'));
 		$this->carregaVariaveisAuth();
 	}
 
@@ -36,6 +47,16 @@ class EventosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		if (!$this->Evento->exists($id)) {
+			throw new NotFoundException(__('Invalid evento'));
+		}
+		$this->Evento->recursive = 2;
+		$options = array('conditions' => array('Evento.' . $this->Evento->primaryKey => $id));
+		$this->set('evento', $this->Evento->find('first', $options));
+
+		$this->carregaVariaveisAuth();
+	}
+	public function encerrados_view($id = null) {
 		if (!$this->Evento->exists($id)) {
 			throw new NotFoundException(__('Invalid evento'));
 		}

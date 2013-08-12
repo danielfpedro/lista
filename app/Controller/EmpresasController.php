@@ -7,10 +7,10 @@ App::uses('AppController', 'Controller');
  */
 class EmpresasController extends AppController {
 
-	public $layout = 'Empresas/default';
+	public $layout = 'empresas/default';
 
 	public function beforeFilter(){
-		$this->Auth->loginAction = array('controller' => 'Empresas', 'action' => 'login');
+		$this->Auth->loginAction = array('controller' => 'empresas', 'action' => 'login');
 		$this->Auth->authenticate = array('Form' => array(
 			'userModel' => 'Empresa','fields' => array('password' => 'senha'))
 		);

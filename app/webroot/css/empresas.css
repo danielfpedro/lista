@@ -1,1 +1,34 @@
 .label-lista a{color: #fff;}
+/************ CHAMADA ****************/
+.chamada-cb{
+	width: 20px;
+	height: 20px;
+	border: 1px solid #aaa;
+	border-radius: 2px;
+	margin: 5px;
+	cursor: pointer;
+	background-color: #fff;
+	text-align: center;
+}
+.chamada-cb:hover{
+	background-color: #DDD;
+}
+
+.invisible{
+	display: none;
+}
+.overlay{
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+
+-moz-opacity: 0.53;
+opacity: 0.53;
+-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=53);
+
+}
